@@ -25,8 +25,14 @@ The template covers all essential sections of a professional PRD:
 
 ## 🚀 How to Use
 
+**Online Version:**
+Visit [https://booya1986.github.io/PRD_Tamplet/](https://booya1986.github.io/PRD_Tamplet/) to view the template and download it in your preferred format:
+- 📄 Download as DOCX
+- 📝 Download as Markdown
+
+**Manual Use:**
 1. **Download** or **fork** this repository
-2. Open the PRD template file
+2. Open the PRD-Template.md file
 3. Replace the example content with your own project details
 4. Customize sections based on your specific needs
 5. Share with your team for feedback and approval

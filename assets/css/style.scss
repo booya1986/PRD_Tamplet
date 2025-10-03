@@ -33,6 +33,12 @@ body::before {
   position: relative;
   font-family: 'JetBrains Mono', monospace;
   margin-bottom: 40px;
+  color: #ffffff;
+}
+
+.page-header .project-name,
+.page-header .project-tagline {
+  color: #ffffff !important;
 }
 
 .page-header::before {

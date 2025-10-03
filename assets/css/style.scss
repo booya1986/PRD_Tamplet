@@ -6,11 +6,12 @@
 /* Import engineering fonts */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
-/* Light background with transparent dots pattern */
+/* Dark background with transparent dots pattern */
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   position: relative;
   font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+  color: #ffffff;
 }
 
 body::before {
@@ -20,7 +21,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
   z-index: -1;
@@ -48,13 +49,14 @@ body::before {
 
 /* Main content card with spacing */
 .main-content {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(20, 20, 20, 0.7);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   font-family: 'JetBrains Mono', monospace;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
   margin-top: -20px;
   position: relative;
+  color: #ffffff;
 }
 
 /* Engineering font styling */
@@ -62,20 +64,22 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   letter-spacing: -0.5px;
+  color: #ffffff;
 }
 
 p, li, td, th {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 14px;
   line-height: 1.8;
+  color: #e0e0e0;
 }
 
 code {
   font-family: 'JetBrains Mono', monospace;
-  background: rgba(26, 26, 46, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   padding: 2px 6px;
   border-radius: 3px;
-  color: #1a1a2e;
+  color: #ffffff;
 }
 
 /* Download button styling - Dark theme */
@@ -128,5 +132,26 @@ th {
 }
 
 tr:nth-child(even) {
-  background: rgba(26, 26, 46, 0.05);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+td {
+  color: #e0e0e0;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Links styling for dark theme */
+a {
+  color: #6ab0ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #90c8ff;
+  text-decoration: underline;
+}
+
+/* Horizontal rules for dark theme */
+hr {
+  border-color: rgba(255, 255, 255, 0.2);
 }

@@ -115,33 +115,11 @@ The app provides smart suggestions, schedules tasks automatically, and tracks da
 ---
 
 ## 10. 🧭 Timeline / Milestones
-
-<table>
-  <thead>
-    <tr>
-      <th>Milestone</th>
-      <th>Description</th>
-      <th>Target Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>✅ MVP Definition</td>
-      <td>Core features, no integrations</td>
-      <td>Nov 2025</td>
-    </tr>
-    <tr>
-      <td>🧪 Beta Launch</td>
-      <td>Closed beta with 500 users</td>
-      <td>Jan 2026</td>
-    </tr>
-    <tr>
-      <td>🚀 Public Launch</td>
-      <td>App Store & Play Store</td>
-      <td>Mar 2026</td>
-    </tr>
-  </tbody>
-</table>
+| Milestone | Description | Target Date |
+|-----------|-------------|-------------|
+| ✅ MVP Definition | Core features, no integrations | Nov 2025 |
+| 🧪 Beta Launch | Closed beta with 500 users | Jan 2026 |
+| 🚀 Public Launch | App Store & Play Store | Mar 2026 |
 
 ---
 
@@ -167,38 +145,12 @@ The app provides smart suggestions, schedules tasks automatically, and tracks da
 ---
 
 ## 13. ✍️ Approvals & Stakeholders
-
-<table>
-  <thead>
-    <tr>
-      <th>Role</th>
-      <th>Name</th>
-      <th>Approval</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Product</td>
-      <td>Avi Levi</td>
-      <td>✅</td>
-    </tr>
-    <tr>
-      <td>Design</td>
-      <td>Dana Cohen</td>
-      <td>⏳</td>
-    </tr>
-    <tr>
-      <td>Engineering</td>
-      <td>Amir Shalev</td>
-      <td>⏳</td>
-    </tr>
-    <tr>
-      <td>Legal</td>
-      <td>Yael Ben-David</td>
-      <td>⏳</td>
-    </tr>
-  </tbody>
-</table>
+| Role | Name | Approval |
+|------|------|----------|
+| Product | Avi Levi | ✅ |
+| Design | Dana Cohen | ⏳ |
+| Engineering | Amir Shalev | ⏳ |
+| Legal | Yael Ben-David | ⏳ |
 
 ---
 

@@ -5,16 +5,10 @@
 **Version:** 1.0
 
 <div style="text-align: center; margin: 30px 0;">
-  <button onclick="downloadAsDocx()" class="download-btn">
-    📄 Download as DOCX
-  </button>
-  <a href="https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md" download="PRD-Template.md" class="download-btn download-btn-secondary">
+  <a href="https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md" download="PRD-Template.md">
     📝 Download as Markdown
   </a>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
-<script src="assets/js/download.js"></script>
 
 ---
 

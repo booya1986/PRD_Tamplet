@@ -20,8 +20,21 @@ This template is a **free public resource** for anyone who wants to create profe
 ### [📄 View Full Template](PRD-Template.md)
 
 ### Quick Download
-- [Download as Markdown](https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md)
-- [View on GitHub](https://github.com/booya1986/PRD_Tamplet)
+
+<div style="text-align: center; margin: 30px 0;">
+  <button onclick="downloadAsDocx()" class="download-btn">
+    📄 Download as DOCX
+  </button>
+  <a href="https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md" class="download-btn download-btn-secondary">
+    📝 Download as Markdown
+  </a>
+  <a href="https://github.com/booya1986/PRD_Tamplet" class="download-btn download-btn-secondary">
+    💻 View on GitHub
+  </a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/docx@7.8.2/build/index.min.js"></script>
+<script src="assets/js/download.js"></script>
 
 ---
 

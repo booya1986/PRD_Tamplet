@@ -1,0 +1,31 @@
+# Personal/local files
+.obsidian/
+.claude/
+*.heic
+images/
+Knowledge management/
+
+# Personal notes and documents (Hebrew filenames)
+קורס*/
+*.md
+# But keep essential files
+!index.md
+!README.md
+!PRD-Template.md
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Logs
+*.log

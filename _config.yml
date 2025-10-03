@@ -1,3 +1,23 @@
 theme: jekyll-theme-cayman
 title: PRD Template
 description: A comprehensive Product Requirements Document template for everyone
+lang: en
+url: https://booya1986.github.io
+baseurl: /PRD_Tamplet
+repository: booya1986/PRD_Tamplet
+
+# SEO metadata
+keywords: PRD, Product Requirements Document, template, product management, product specification, software development, startup, MVP
+author: Avi Levi
+
+# Social sharing
+twitter:
+  card: summary
+  username:
+
+# GitHub metadata
+github:
+  is_project_page: true
+  repository_url: https://github.com/booya1986/PRD_Tamplet
+  repository_name: PRD_Tamplet
+  owner_name: booya1986

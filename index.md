@@ -8,7 +8,7 @@
   <button onclick="downloadAsDocx()" class="download-btn">
     📄 Download as DOCX
   </button>
-  <a href="https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md" class="download-btn download-btn-secondary">
+  <a href="https://raw.githubusercontent.com/booya1986/PRD_Tamplet/main/PRD-Template.md" download="PRD-Template.md" class="download-btn download-btn-secondary">
     📝 Download as Markdown
   </a>
 </div>

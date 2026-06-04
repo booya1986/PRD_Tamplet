@@ -2,6 +2,7 @@ import datetime
 from fetch_trending_repos import iso_week_string, since_date
 from fetch_trending_repos import is_ai_relevant
 from fetch_trending_repos import previously_seen_repos
+from fetch_trending_repos import normalize_repo
 
 
 def test_iso_week_string_formats_year_and_week():
@@ -39,3 +40,33 @@ def test_extracts_full_names_from_note_text(tmp_path):
 
 def test_returns_empty_for_missing_dir():
     assert previously_seen_repos("/nonexistent/path/xyz", limit=5) == set()
+
+
+def test_normalize_extracts_expected_fields():
+    raw = {
+        "full_name": "foo/bar",
+        "html_url": "https://github.com/foo/bar",
+        "description": "An LLM agent toolkit",
+        "stargazers_count": 1234,
+        "language": "Python",
+        "topics": ["llm", "agents"],
+        "pushed_at": "2026-06-03T10:00:00Z",
+        "created_at": "2026-05-30T10:00:00Z",
+    }
+    out = normalize_repo(raw, readme="# Title\nHello")
+    assert out["full_name"] == "foo/bar"
+    assert out["url"] == "https://github.com/foo/bar"
+    assert out["stars"] == 1234
+    assert out["language"] == "Python"
+    assert out["topics"] == ["llm", "agents"]
+    assert out["description"] == "An LLM agent toolkit"
+    assert out["pushed_at"] == "2026-06-03"
+    assert out["readme_excerpt"] == "# Title\nHello"
+
+
+def test_normalize_handles_missing_fields():
+    out = normalize_repo({"full_name": "a/b"}, readme="")
+    assert out["language"] == "Unknown"
+    assert out["topics"] == []
+    assert out["description"] == ""
+    assert out["stars"] == 0

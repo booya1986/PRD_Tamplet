@@ -83,3 +83,19 @@ def fetch_readme_excerpt(full_name, max_chars=4000):
         return content[:max_chars]
     except Exception:
         return ""
+
+
+def normalize_repo(raw, readme=""):
+    pushed = (raw.get("pushed_at") or "")[:10]
+    created = (raw.get("created_at") or "")[:10]
+    return {
+        "full_name": raw.get("full_name", ""),
+        "url": raw.get("html_url", ""),
+        "description": raw.get("description") or "",
+        "stars": raw.get("stargazers_count", 0) or 0,
+        "language": raw.get("language") or "Unknown",
+        "topics": list(raw.get("topics") or []),
+        "pushed_at": pushed,
+        "created_at": created,
+        "readme_excerpt": readme,
+    }

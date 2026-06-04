@@ -93,3 +93,13 @@ def test_select_top_sorts_by_stars_desc_and_limits():
     ]
     out = select_top(repos, seen=set(), limit=2)
     assert [r["full_name"] for r in out] == ["y/llm2", "z/llm3"]
+
+
+def test_select_top_keeps_higher_star_copy_on_duplicate():
+    repos = [
+        {"full_name": "dup/repo", "description": "llm", "topics": ["llm"], "stargazers_count": 500},
+        {"full_name": "dup/repo", "description": "llm", "topics": ["llm"], "stargazers_count": 800},
+    ]
+    out = select_top(repos, seen=set(), limit=10)
+    assert len(out) == 1
+    assert out[0]["stargazers_count"] == 800

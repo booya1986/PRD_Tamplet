@@ -65,8 +65,16 @@ _HEADERS = {
 }
 
 
+def _build_headers():
+    headers = dict(_HEADERS)
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
 def _get(url):
-    req = urllib.request.Request(url, headers=_HEADERS)
+    req = urllib.request.Request(url, headers=_build_headers())
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 

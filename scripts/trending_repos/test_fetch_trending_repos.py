@@ -3,6 +3,7 @@ from fetch_trending_repos import iso_week_string, since_date
 from fetch_trending_repos import is_ai_relevant
 from fetch_trending_repos import previously_seen_repos
 from fetch_trending_repos import normalize_repo
+from fetch_trending_repos import select_top
 
 
 def test_iso_week_string_formats_year_and_week():
@@ -70,3 +71,25 @@ def test_normalize_handles_missing_fields():
     assert out["topics"] == []
     assert out["description"] == ""
     assert out["stars"] == 0
+
+
+def test_select_top_dedups_filters_and_limits():
+    repos = [
+        {"full_name": "a/llm", "description": "an llm tool", "topics": ["llm"], "stargazers_count": 500},
+        {"full_name": "a/llm", "description": "an llm tool", "topics": ["llm"], "stargazers_count": 500},
+        {"full_name": "b/csv", "description": "csv parser", "topics": ["parser"], "stargazers_count": 999},
+        {"full_name": "c/agent", "description": "agent framework", "topics": ["agents"], "stargazers_count": 100},
+    ]
+    out = select_top(repos, seen={"c/agent"}, limit=10)
+    names = [r["full_name"] for r in out]
+    assert names == ["a/llm"]
+
+
+def test_select_top_sorts_by_stars_desc_and_limits():
+    repos = [
+        {"full_name": "x/llm1", "description": "llm", "topics": ["llm"], "stargazers_count": 10},
+        {"full_name": "y/llm2", "description": "llm", "topics": ["llm"], "stargazers_count": 50},
+        {"full_name": "z/llm3", "description": "llm", "topics": ["llm"], "stargazers_count": 30},
+    ]
+    out = select_top(repos, seen=set(), limit=2)
+    assert [r["full_name"] for r in out] == ["y/llm2", "z/llm3"]

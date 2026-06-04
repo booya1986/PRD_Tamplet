@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import re
+import sys
 import urllib.parse
 import urllib.request
 
@@ -99,3 +100,64 @@ def normalize_repo(raw, readme=""):
         "created_at": created,
         "readme_excerpt": readme,
     }
+
+
+SEARCH_TOPICS = ["llm", "agents", "ai-agents", "rag", "generative-ai", "mcp"]
+
+
+def select_top(repos, seen, limit=10):
+    by_name = {}
+    for r in repos:
+        name = r.get("full_name", "")
+        if not name or name in seen:
+            continue
+        if not is_ai_relevant(r):
+            continue
+        if name not in by_name or (r.get("stargazers_count", 0) or 0) > (by_name[name].get("stargazers_count", 0) or 0):
+            by_name[name] = r
+    ranked = sorted(by_name.values(), key=lambda r: r.get("stargazers_count", 0) or 0, reverse=True)
+    return ranked[:limit]
+
+
+def main():
+    today = datetime.date.today()
+    since = since_date(today)
+    week = iso_week_string(today)
+    notes_dir = os.path.expanduser(
+        "~/Documents/avi-workspace/Researches/Trending Repos"
+    )
+    seen = previously_seen_repos(notes_dir, limit=3)
+
+    warnings = []
+    collected = []
+    for topic in SEARCH_TOPICS:
+        try:
+            collected.extend(search_trending(since, topic, per_page=30))
+        except Exception as e:
+            warnings.append(f"search failed for topic '{topic}': {e}")
+
+    top = select_top(collected, seen=seen, limit=10)
+    if len(top) < 10:
+        warnings.append(f"only {len(top)} AI/LLM repos found (wanted 10)")
+
+    briefs = []
+    for r in top:
+        readme = fetch_readme_excerpt(r.get("full_name", ""))
+        if not readme:
+            warnings.append(f"no README for {r.get('full_name')}")
+        briefs.append(normalize_repo(r, readme=readme))
+
+    out = {
+        "week": week,
+        "since": since,
+        "generated_for": today.isoformat(),
+        "notes_dir": notes_dir,
+        "count": len(briefs),
+        "warnings": warnings,
+        "repos": briefs,
+    }
+    json.dump(out, sys.stdout, ensure_ascii=False, indent=2)
+
+
+if __name__ == "__main__":
+    main()

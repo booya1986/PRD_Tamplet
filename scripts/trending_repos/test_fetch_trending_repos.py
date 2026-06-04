@@ -1,6 +1,7 @@
 import datetime
 from fetch_trending_repos import iso_week_string, since_date
 from fetch_trending_repos import is_ai_relevant
+from fetch_trending_repos import previously_seen_repos
 
 
 def test_iso_week_string_formats_year_and_week():
@@ -26,3 +27,15 @@ def test_relevant_when_description_has_keyword():
 def test_irrelevant_when_no_signal():
     repo = {"name": "csv-parser", "description": "fast csv parsing", "topics": ["parser"]}
     assert is_ai_relevant(repo) is False
+
+
+def test_extracts_full_names_from_note_text(tmp_path):
+    note = tmp_path / "2026-W22 Trending AI Repos.md"
+    note.write_text("## [foo/bar](https://github.com/foo/bar) — `Python`\nstuff\n"
+                    "## [baz/qux](https://github.com/baz/qux) — `Go`\n")
+    seen = previously_seen_repos(str(tmp_path), limit=5)
+    assert seen == {"foo/bar", "baz/qux"}
+
+
+def test_returns_empty_for_missing_dir():
+    assert previously_seen_repos("/nonexistent/path/xyz", limit=5) == set()

@@ -1,4 +1,6 @@
 import datetime
+import os
+import re
 
 
 def iso_week_string(d):
@@ -28,3 +30,24 @@ def is_ai_relevant(repo):
         return True
     text = ((repo.get("description") or "") + " " + (repo.get("name") or "")).lower()
     return any(k in text for k in AI_KEYWORDS)
+
+
+_GH_LINK = re.compile(r"github\.com/([^/\s)]+/[^/\s)]+)")
+
+
+def previously_seen_repos(notes_dir, limit=3):
+    if not os.path.isdir(notes_dir):
+        return set()
+    files = sorted(
+        (f for f in os.listdir(notes_dir) if f.endswith(".md")),
+        reverse=True,
+    )[:limit]
+    seen = set()
+    for fname in files:
+        try:
+            with open(os.path.join(notes_dir, fname), encoding="utf-8") as fh:
+                for m in _GH_LINK.finditer(fh.read()):
+                    seen.add(m.group(1).rstrip(")"))
+        except OSError:
+            continue
+    return seen

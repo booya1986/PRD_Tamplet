@@ -1,6 +1,10 @@
+import base64
 import datetime
+import json
 import os
 import re
+import urllib.parse
+import urllib.request
 
 
 def iso_week_string(d):
@@ -51,3 +55,31 @@ def previously_seen_repos(notes_dir, limit=3):
         except OSError:
             continue
     return seen
+
+
+_API = "https://api.github.com"
+_HEADERS = {
+    "Accept": "application/vnd.github+json",
+    "User-Agent": "trending-ai-repos-script",
+}
+
+
+def _get(url):
+    req = urllib.request.Request(url, headers=_HEADERS)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def search_trending(since, topic, per_page=30):
+    q = urllib.parse.quote(f"topic:{topic} created:>={since}")
+    url = f"{_API}/search/repositories?q={q}&sort=stars&order=desc&per_page={per_page}"
+    return _get(url).get("items", [])
+
+
+def fetch_readme_excerpt(full_name, max_chars=4000):
+    try:
+        data = _get(f"{_API}/repos/{full_name}/readme")
+        content = base64.b64decode(data.get("content", "")).decode("utf-8", "ignore")
+        return content[:max_chars]
+    except Exception:
+        return ""

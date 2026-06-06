@@ -132,7 +132,10 @@ def main():
     since = since_date(today)
     week = iso_week_string(today)
     notes_dir = os.path.expanduser(
-        "~/Documents/avi-workspace/Researches/Trending Repos"
+        os.environ.get(
+            "TRENDING_NOTES_DIR",
+            "~/Documents/avi-workspace/Researches/Trending Repos",
+        )
     )
     seen = previously_seen_repos(notes_dir, limit=3)
 

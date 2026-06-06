@@ -669,30 +669,32 @@ def wrap_brief_section(label_en, text, is_matters=False):
 
 
 def render_narration(data):
+    """Hebrew narration script for TTS (ElevenLabs eleven_multilingual_v2)."""
     week = data.get("week", "")
     repos = data.get("repos", [])
-    spoken_week = week.replace("-W", ", week ") if week else week
+    # Convert 2026-W23 -> שבוע 23, 2026
+    week_he = week
+    if "-W" in week:
+        yr, wn = week.split("-W")
+        week_he = f"שבוע {int(wn)}, {yr}"
+
     lines = [
-        f"Your trending A.I. repos digest for {spoken_week}.",
-        f"Here are the {len(repos)} most relevant new repositories this week.",
+        f"שלום, זה הדוח השבועי שלך על הרפוזיטוריות המובילות בתחום הבינה המלאכותית.",
+        f"{week_he}.",
+        f"השבוע יש לנו {len(repos)} רפוזיטוריות שרלוונטיות במיוחד לתחומים שלך.",
         "",
     ]
     for i, r in enumerate(repos, 1):
-        name = r.get("full_name", "")
-        spoken_name = name.replace("/", ", by ").replace("-", " ")
-        lang = r.get("language") or "unknown language"
+        name = r.get("full_name", "").split("/")[-1].replace("-", " ")
         stars = r.get("stars", 0)
-        desc = (r.get("description") or "").strip().rstrip(".")
-        narr = r.get("narration")
+        narr = r.get("narration", "").strip()
         if narr:
-            lines.append(f"Number {i}. {narr}")
+            lines.append(f"מספר {i}. {name}. {narr}")
         else:
-            lines.append(
-                f"Number {i}. {spoken_name}. Written in {lang}, "
-                f"with {stars:,} stars. {desc}."
-            )
+            desc = (r.get("description") or "").strip().rstrip(".")
+            lines.append(f"מספר {i}. {name}, עם {stars:,} כוכבים. {desc}.")
         lines.append("")
-    lines.append("That's your weekly AI digest. Have a great week.")
+    lines.append("זה הכל להשבוע. שיהיה לך שבוע מעולה!")
     return "\n".join(lines)
 
 
